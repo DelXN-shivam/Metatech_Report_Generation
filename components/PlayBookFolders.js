@@ -4,14 +4,13 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
-import config from "../config.json";
 import { useTheme } from "./ThemeContext";
 
 const PlayBookFolders = () => {
   const router = useRouter();
   const { darkMode } = useTheme();
   const fid = typeof router.query.fid !== "undefined" ? router.query.fid : "root";
-  const teamDriveId = config.directory.team_drive;
+  const teamDriveId = '';
   const corpora = teamDriveId ? "teamDrive" : "allDrives";
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -92,139 +91,3 @@ const PlayBookFolders = () => {
 };
 
 export default PlayBookFolders;
-
-
-
-
-
-// // components/PlayBookFolders.jsx
-// import React, { useState, useEffect } from "react";
-// import { useRouter } from "next/router";
-// import axios from "axios";
-// import config from "../config.json";
-// import styles from "../styles/Home.module.css";
-// import Link from "next/link";
-
-// const PlayBookFolders = () => {
-//   const router = useRouter();
-//   const fid = typeof router.query.fid !== "undefined" ? router.query.fid : "root"; // Default to "root"
-//   const teamDriveId = config.directory.team_drive;
-//   const corpora = teamDriveId ? "teamDrive" : "allDrives";
-//   const [results, setResults] = useState([]);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState(null);
-
-//   useEffect(() => {
-//     const getFiles = async () => {
-//       setLoading(true);
-//       setError(null);
-//       setResults([]);
-//       const accessToken = localStorage.getItem("access_token");
-//       try {
-//         const res = await axios.get("https://www.googleapis.com/drive/v3/files", {
-//           headers: { Authorization: `Bearer ${accessToken}` },
-//           params: {
-//             corpora: corpora,
-//             includeTeamDriveItems: true,
-//             supportsAllDrives: true,
-//             teamDriveId: teamDriveId,
-//             q: `mimeType='application/vnd.google-apps.folder' and trashed = false and parents in '${fid}'`,
-//           },
-//         });
-//         setResults(res.data.files);
-//       } catch (err) {
-//         if (err.response && err.response.status === 401) {
-//           console.error("Access token expired. Please refresh.");
-//         } else {
-//           setError(err);
-//         }
-//       }
-//       setLoading(false);
-//     };
-//     getFiles();
-//   }, [fid]);
-
-//   return (
-//     <div className="w-full text-left">
-//       {loading && <div>Loading...</div>}
-//       {error && <div>Error: {error.message}</div>}
-//       <div className={styles.grid}>
-//         {results.map((result) => (
-//           <Link
-//             href={{
-//               pathname: `/list/[fid]`,
-//               query: { fid: result.id },
-//             }}
-//             as={`/list/${result.id}`}
-//             key={result.id}
-//           >
-//             <div className={styles.card}>
-//               <h3>{result.name}</h3>
-//             </div>
-//           </Link>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default PlayBookFolders;
-
-
-
-
-
-// // components/PlayBookFolders.jsx
-// import React, { useState, useEffect } from "react";
-// import { useRouter } from 'next/router';
-// import axios from "axios";
-// import config from "../config.json";
-// import Link from 'next/link';
-
-// const PlayBookFolders = () => {
-//   const router = useRouter();
-//   const fid = router.query.fid || "root"; // Default to root folder if no fid is provided
-//   const [folders, setFolders] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const fetchFolders = async () => {
-//       setLoading(true);
-//       const accessToken = localStorage.getItem("access_token");
-//       try {
-//         const response = await axios.get("https://www.googleapis.com/drive/v3/files", {
-//           headers: { Authorization: `Bearer ${accessToken}` },
-//           params: {
-//             q: `mimeType='application/vnd.google-apps.folder' and trashed=false and parents in '${fid}'`,
-//             fields: "files(id, name)",
-//           },
-//         });
-//         setFolders(response.data.files);
-//       } catch (error) {
-//         console.error("Error fetching folders:", error);
-//       }
-//       setLoading(false);
-//     };
-//     fetchFolders();
-//   }, [fid]);
-
-//   return (
-//     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-//       {loading ? (
-//         <p>Loading folders...</p>
-//       ) : (
-//         folders.map((folder) => (
-//           <Link
-//             key={folder.id}
-//             href={`/list/${folder.id}`}
-//             className="bg-gray-100 p-4 rounded-lg shadow-md hover:bg-gray-200 transition duration-300"
-//           >
-//             <h3 className="text-lg font-semibold">{folder.name}</h3>
-//           </Link>
-//         ))
-//       )}
-//     </div>
-//   );
-// };
-
-// export default PlayBookFolders;

@@ -3,7 +3,6 @@ import { FiFolder, FiFile, FiFolderPlus, FiFilePlus, FiDatabase } from 'react-ic
 import { useTheme } from './ThemeContext';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import config from '../config.json';
 
 const StatsCards = () => {
   const { darkMode } = useTheme();
@@ -18,7 +17,7 @@ const StatsCards = () => {
   });
   const [loading, setLoading] = useState(true);
   const accessToken = localStorage.getItem("access_token");
-  const teamDriveId = config.directory.team_drive;
+  const teamDriveId = '';
   const corpora = teamDriveId ? "teamDrive" : "allDrives";
 
   useEffect(() => {

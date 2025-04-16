@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import config from "../config.json";
 
 const handleAccessTokenExpiration = async () => {
   const refreshToken = localStorage.getItem("refresh_token");
-  const clientId = process.env.API_CLIENT_ID || config.api.client_id;
-  const clientSecret =process.env.API_CLIENT_SECRET || config.api.client_secret;
+  const clientId = process.env.API_CLIENT_ID;
+  const clientSecret =process.env.API_CLIENT_SECRET;
 
   try {
     const response = await axios.post("https://oauth2.googleapis.com/token", {

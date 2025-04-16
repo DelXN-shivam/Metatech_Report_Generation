@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import config from "../config.json";
 import { useTheme } from './ThemeContext';
 // import styles from '../styles/Home.module.css';
 
@@ -19,7 +18,7 @@ const HeaderImage = () => {
                         />
                     </div>
                     <h1 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-800'}`}>
-                        {process.env.HEADER_HOMEPAGE_URL ||  config.components.HeaderImage.title}
+                        {process.env.HEADER_HOMEPAGE_URL}
                     </h1>
                 </div>
             </Link>

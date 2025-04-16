@@ -4,14 +4,13 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import config from "../config.json";
 import { useTheme } from "./ThemeContext";
 
 const PlayBookFiles = () => {
   const router = useRouter();
   const { darkMode } = useTheme();
   const fid = typeof router.query.fid !== "undefined" ? router.query.fid : "root";
-  const teamDriveId = config.directory.team_drive;
+  const teamDriveId ='';
   const corpora = teamDriveId ? "teamDrive" : "allDrives";
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);

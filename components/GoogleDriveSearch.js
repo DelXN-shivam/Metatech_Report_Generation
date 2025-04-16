@@ -35,8 +35,10 @@ const GoogleDriveSearch = () => {
     try {
       const refreshToken = localStorage.getItem('refresh_token');
       const response = await axios.post('https://oauth2.googleapis.com/token', {
-        client_id: config.api.client_id,
-        client_secret: config.api.client_secret,
+        // client_id: config.api.client_id,
+        // client_secret: config.api.client_secret,
+        client_id: process.env.API_CLIENT_ID,
+        client_secret: process.env.API_CLIENT_SECRET,
         refresh_token: refreshToken,
         grant_type: 'refresh_token'
       });

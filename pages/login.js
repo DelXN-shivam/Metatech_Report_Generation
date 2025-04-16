@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Router from 'next/router'
 import axios from 'axios';
 
-var config = require('../config.json');
-
 const fetchUserProfile = async (accessToken) => {
   try {
     const response = await axios.get('https://www.googleapis.com/oauth2/v2/userinfo', {
@@ -36,8 +34,8 @@ const handleRedirect = async (code, currentURL = "") => {
     console.log(currentURL)
     const response = await axios.post('https://oauth2.googleapis.com/token', {
       code: code,
-      client_id : process.env.API_CLIENT_ID || config.api.client_id,
-      client_secret :process.env.API_CLIENT_SECRET || config.api.client_secret,
+      client_id : process.env.API_CLIENT_ID,
+      client_secret :process.env.API_CLIENT_SECRET,
       redirect_uri: redirectUri,
       grant_type: 'authorization_code',
     });

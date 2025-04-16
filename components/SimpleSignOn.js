@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-var config = require('../config.json');
 
 const SimpleSignOn = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,8 +16,8 @@ const SimpleSignOn = ({ children }) => {
   const refreshAccessToken = async (refreshToken) => {
     try {
       const response = await axios.post('https://oauth2.googleapis.com/token', {
-        client_id : process.env.API_CLIENT_ID || config.api.client_id,
-        client_secret :process.env.API_CLIENT_SECRET || config.api.client_secret,
+        client_id : process.env.API_CLIENT_ID,
+        client_secret :process.env.API_CLIENT_SECRET,
         refresh_token: refreshToken,
         grant_type: 'refresh_token'
       });
@@ -165,9 +164,9 @@ const SimpleSignOn = ({ children }) => {
     try {
       // Add userinfo scopes to the existing scopes
       const userInfoScopes = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
-      const allScopes = `${ process.env.API_SCOPES ||  config.api.scopes} ${userInfoScopes}`;
+      const allScopes = `${ process.env.API_SCOPES} ${userInfoScopes}`;
       
-      window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent&response_type=code&client_id=${config.api.client_id}&redirect_uri=${currentURL}login&scope=${encodeURIComponent(allScopes)}`;
+      window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent&response_type=code&client_id=${process.env.API_CLIENT_ID}&redirect_uri=${currentURL}login&scope=${encodeURIComponent(allScopes)}`;
     } catch (err) {
       setError(err);
     }
